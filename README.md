@@ -1,2 +1,2 @@
-# tic-tac-toe-python
-Python exploration of tic-tac-toe to develop the algorithm
+# tic-tac-toe
+Exploration of tic-tac-toe to develop the algorithm
