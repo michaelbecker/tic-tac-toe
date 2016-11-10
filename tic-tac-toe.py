@@ -60,22 +60,74 @@ def print_board():
 
 
 
-print_board();
+def strategy_win(player):
 
+    def win_row(r):
+        for c in range(num_cols):
+            if board[r][c] == free:
+                win_found = True
+                for ci in range (num_cols):
+                    if ci == c:
+                        continue
+                    elif board[r][ci] != player:
+                        win_found = False
+                        break
+                if win_found:
+                    return True, r, c
+        return False, -1, -1
+
+    def win_col(c):
+        for r in range(num_rows):
+            if board[r][c] == free:
+                win_found = True
+                for ri in range (num_rows):
+                    if ri == r:
+                        continue
+                    elif board[ri][c] != player:
+                        win_found = False
+                        break
+                if win_found:
+                    return True, r, c
+        return False, -1, -1
+
+    def win_diag():
+        if num_rows != num_cols:
+            return False, -1, -1
+
+
+
+    for row in range(num_rows):
+        win, r, c = win_row(row)
+        if win:
+            print("win", win, "r", r, "c", c)
+
+    for col in range(num_cols):
+        win, r, c = win_col(col)
+        if win:
+            print("win", win, "r", r, "c", c)
+
+
+#print_board();
 # Works as C, [row][col]
-board[0][0] = o
-board[0][1] = o
-board[0][2] = o
+board[0][0] = 0
+board[0][1] = 0
+board[0][2] = x
 
-board[1][0] = x
-board[2][0] = x
+board[1][0] = 0
+board[1][1] = 0
+board[1][2] = 0
+
+board[2][0] = 0
+board[2][1] = 0
+board[2][2] = x
+
+#board[1][0] = x
+#board[2][0] = x
 
 print_board();
-
+strategy_win(x)
 
 #print (board);
-
-#def strategy_win(player):
 
 
 
