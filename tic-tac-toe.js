@@ -5,6 +5,9 @@ const x = 1;
 const o = 2;
 
 
+//-------------------------------------------------------------------
+// Get the opponent symbol
+//-------------------------------------------------------------------
 function getOpponent(player) {
     if (player == x)
         return o;
@@ -15,6 +18,9 @@ function getOpponent(player) {
 }
 
 
+//-------------------------------------------------------------------
+// Initialize a board
+//-------------------------------------------------------------------
 function createBoard(rows, cols) {
     var board = new Array(rows);
     for (var i = 0; i < board.length; i++) {
@@ -31,6 +37,9 @@ function createBoard(rows, cols) {
 }
 
 
+//-------------------------------------------------------------------
+// Debug print function
+//-------------------------------------------------------------------
 function printBoardToConsole(board) {
 
     console.log("");
@@ -57,6 +66,9 @@ function printBoardToConsole(board) {
 }
 
 
+//-------------------------------------------------------------------
+// Debug print function
+//-------------------------------------------------------------------
 function printWiningCombinationsToConsole(w) {
     console.log("There are " + w.length + " possible wins.");
     for (var i = 0; i < w.length; i++) {
@@ -65,6 +77,9 @@ function printWiningCombinationsToConsole(w) {
 }
 
 
+//-------------------------------------------------------------------
+// Debug print function
+//-------------------------------------------------------------------
 function printForkingCombinationsToConsole(w) {
     console.log("There are " + w.length + " possible forks.");
     for (var i = 0; i < w.length; i++) {
@@ -251,7 +266,7 @@ function findForks(board, player) {
                     forkCombinations[numberForks++] = [r, c];
                 }
                 // MUST restore the board to the original state.
-                board[r][c] == 0;
+                board[r][c] = 0;
             }
         }
     }
@@ -454,6 +469,64 @@ function runStrategy(board, player) {
 }
 
 
+//---------------------------------------------------------------
+//  Did someone win?
+//---------------------------------------------------------------
+function isWinner(board, player) {
+
+    for (var r = 0; r < board.length; r++) {
+        var cnt = 0;
+        for (var c = 0; c < board[r].length; c++){
+            if (board[r][c] == player)
+                cnt++;
+            else
+                break;
+        }
+        if (cnt == board[r].length)
+           return true; 
+    }
+
+    for (var c = 0; c < board[0].length; c++) {
+        var cnt = 0;
+        for (var r = 0; r < board.length; r++){
+            if (board[r][c] == player)
+                cnt++;
+            else
+                break;
+        }
+        if (cnt == board.length)
+           return true; 
+    }
+
+    if (board.length == board[0].length) {
+        var cnt = 0;
+        for (var i = 0; i < board.length; i++) {
+            if (board[i][i] == player)
+                cnt++;
+            else
+                break;
+        }
+        if (cnt == board.length)
+            return true;
+    }
+
+    if (board.length == board[0].length) {
+        var cnt = 0;
+        for (var i = 0, j = board.length - 1; 
+                i < board.length; 
+                i++, j--) {
+            if (board[i][j] == player)
+                cnt++;
+            else
+                break;
+        }
+        if (cnt == board.length)
+            return true;
+    }
+
+    return false;
+}
+
 
 var board = createBoard(numRows, numCols);
 board[0][0] = 0;
@@ -473,10 +546,9 @@ printBoardToConsole(board);
 var wins = findWins(board, o);
 printWiningCombinationsToConsole(wins);
 
-debugger;
 var forks = findForks(board, o);
-debugger;
 printForkingCombinationsToConsole(forks);
 
 runStrategy(board, o);
+isWinner(board, o);
 
