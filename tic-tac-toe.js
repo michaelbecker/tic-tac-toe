@@ -1,6 +1,6 @@
-const numRows = 3;
-const numCols = 3;
-
+//-------------------------------------------------------------------
+// Create symbols for x and o, to make this simpler.
+//-------------------------------------------------------------------
 const x = 1;
 const o = 2;
 
@@ -528,7 +528,18 @@ function isWinner(board, player) {
 }
 
 
+//
+//  Scope the size of the board
+//
+const numRows = 3;
+const numCols = 3;
+
 var board = createBoard(numRows, numCols);
+
+
+
+/*
+ * Simple testing
 board[0][0] = 0;
 board[0][1] = 0;
 board[0][2] = o;
@@ -537,10 +548,9 @@ board[1][0] = 0;
 board[1][1] = o;
 board[1][2] = 0;
 
-board[2][0] = 0;
+board[2][0] = o;
 board[2][1] = 0;
 board[2][2] = 0;
-
 
 printBoardToConsole(board);
 var wins = findWins(board, o);
@@ -550,5 +560,11 @@ var forks = findForks(board, o);
 printForkingCombinationsToConsole(forks);
 
 runStrategy(board, o);
-isWinner(board, o);
+if (isWinner(board, o)) {
+    console.log("O wins!");
+}
+
+*/
+
+
 
